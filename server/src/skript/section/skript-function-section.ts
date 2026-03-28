@@ -1,13 +1,13 @@
 import { DiagnosticSeverity, Location } from 'vscode-languageserver/browser';
-import { PatternData, TypeData } from '../../pattern/data/pattern-data';
-import { PatternType } from '../../pattern/pattern-type';
+import { PatternData, TypeData } from '../../Pattern/data/pattern-data';
+import { PatternType } from '../../Pattern/pattern-type';
 import { TokenModifiers } from '../../token-modifiers';
 import { TokenTypes } from '../../token-types';
 import { SkriptVariable } from '../storage/skript-variable';
 import { SkriptTypeState } from '../storage/type/skript-type-state';
 import { SkriptContext } from '../validation/skript-context';
 import {
-	SkriptSection
+    SkriptSection
 } from "./skript-section/skript-section";
 export class SkriptFunction extends SkriptSection {
 	//the name of this function

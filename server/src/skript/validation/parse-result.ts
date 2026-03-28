@@ -1,11 +1,11 @@
 import { Diagnostic } from 'vscode-languageserver/browser';
 import { SkriptNestHierarchy } from '../../nesting/skript-nest-hierarchy';
-import { PatternData } from '../../pattern/data/pattern-data';
-import { FrequencyMatrix } from '../../pattern/frequency-matrix';
-import { Scope } from '../../pattern/scope';
-import { SkriptPatternCall } from '../../pattern/skript-pattern';
-import { SkriptSection } from '../section/skript-section/skript-section';
-import { semanticTokenContainer, SemanticTokenLine } from '../section/unordered-semantic-tokens-builder';
+import { PatternData } from '../../Pattern/data/pattern-data';
+import { FrequencyMatrix } from '../../Pattern/frequency-matrix';
+import { Scope } from '../../Pattern/Scope';
+import { SkriptPatternCall } from '../../Pattern/skript-pattern';
+import { SkriptSection } from '../Section/skript-section/skript-section';
+import { semanticTokenContainer, SemanticTokenLine } from '../Section/unordered-semantic-tokens-builder';
 
 export class ParseResult {
 

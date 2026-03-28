@@ -2,7 +2,7 @@
 import path = require('path');
 import { skriptFileHeader } from './addon-parser';
 import { ParseFile } from './parse-file';
-import { Parser } from './parser';
+import { Parser } from './Parser';
 
 export class idParser extends Parser {
 	static override idDirectory: string = path.join(this.parserDirectory, "ids");

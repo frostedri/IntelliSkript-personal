@@ -1,0 +1,808 @@
+{
+  "metadata": {
+    "version": "4.16.9"
+  },
+  "events": [
+    {
+      "id": "block_change_packet",
+      "name": "On Block Change Packet",
+      "patterns": [
+        "[on] block change packet"
+      ],
+      "event values": [
+        "event-block",
+        "event-block data",
+        "event-location",
+        "event-material",
+        "event-player",
+        "event-world"
+      ],
+      "cancellable": true
+    },
+    {
+      "id": "chunk_data_packet",
+      "name": "On Chunk Data Packet",
+      "patterns": [
+        "[on] chunk data packet"
+      ],
+      "cancellable": true
+    },
+    {
+      "id": "player_action",
+      "name": "On Player Action",
+      "patterns": [
+        "[on] player action packet"
+      ],
+      "event values": [
+        "event-block",
+        "event-integer",
+        "event-location",
+        "event-player",
+        "event-text",
+        "event-world"
+      ],
+      "cancellable": true
+    },
+    {
+      "id": "sound_event",
+      "name": "On Sound Event",
+      "patterns": [
+        "[on] sound packet"
+      ],
+      "event values": [
+        "event-player",
+        "event-world"
+      ],
+      "cancellable": true
+    },
+    {
+      "id": "every_packet",
+      "name": "On every packet",
+      "patterns": [
+        "[on] every packet"
+      ],
+      "event values": [
+        "event-boolean (yes/no)",
+        "event-object",
+        "event-player",
+        "event-world"
+      ],
+      "cancellable": true
+    },
+    {
+      "id": "particle_send",
+      "name": "On particle send",
+      "patterns": [
+        "[on] particle send"
+      ],
+      "event values": [
+        "event-integer",
+        "event-location",
+        "event-number",
+        "event-player",
+        "event-types.bukkitparticle",
+        "event-vector",
+        "event-world"
+      ],
+      "cancellable": true
+    }
+  ],
+  "effects": [
+    {
+      "id": "BaeFell",
+      "name": "BaeFell",
+      "patterns": [
+        "baefell[-]ify [the] %entities% for %players%"
+      ]
+    },
+    {
+      "id": "EffBlockMarkerNew",
+      "name": "Create Debug Marker New",
+      "description": [
+        "Create a colored debug marker at a location for players.",
+        "Optionally you can add a text, alpha (transparency) and duration.",
+        "Requires Minecraft 1.20.2+"
+      ],
+      "examples": [
+        "create debug marker with color blue for player",
+        "create debug marker with color rgb(200,100,100) for all players",
+        "create debug marker with color red and with alpha 100 for all players",
+        "create debug marker with color rgb(255,100,23) with alpha 50 for all players",
+        "create debug marker with color green with alpha 25 with text \"I'M A MARKER!\" for player",
+        "create debug marker with color yellow for all players for 10 seconds",
+        "create debug marker with color rgb(100,100,100) for all players for 10 minutes"
+      ],
+      "since": [
+        "INSERT VERSION"
+      ],
+      "patterns": [
+        "create debug marker at %locations% with color %color% [[and ]with alpha %number%] [[and ]with text %string%] for %players% [for %timespan%]"
+      ]
+    },
+    {
+      "id": "EffAnimatePacket",
+      "name": "EffAnimatePacket",
+      "patterns": [
+        "[send] animation [packet] [with] id %number% for entity [with id] %number% for %players%"
+      ]
+    },
+    {
+      "id": "EffAutoSpinAttack",
+      "name": "EffAutoSpinAttack",
+      "patterns": [
+        "make %players% spin [attack] for %timespan%"
+      ]
+    },
+    {
+      "id": "EffBrand",
+      "name": "EffBrand",
+      "patterns": [
+        "set server brand to %string% for %players%"
+      ]
+    },
+    {
+      "id": "EffChangeIP",
+      "name": "EffChangeIP",
+      "patterns": [
+        "set ip of %player% to %string% with port %number%"
+      ]
+    },
+    {
+      "id": "EffChangeSkin",
+      "name": "EffChangeSkin",
+      "patterns": [
+        "set skin of %players% to skin of %string% [with signature %string%]"
+      ]
+    },
+    {
+      "id": "EffChangeVision",
+      "name": "EffChangeVision",
+      "patterns": [
+        "change vision of %players% to [entity] %entitytype%"
+      ]
+    },
+    {
+      "id": "EffFakeBiome",
+      "name": "EffFakeBiome",
+      "patterns": [
+        "[send] fake biome [named] %string% between %location% and %location% for %players%"
+      ]
+    },
+    {
+      "id": "EffFakeBlockPacketForChunk",
+      "name": "EffFakeBlockPacketForChunk",
+      "patterns": [
+        "fake block packet at %location% to %blockdata%"
+      ]
+    },
+    {
+      "id": "EffFakeDeath",
+      "name": "EffFakeDeath",
+      "patterns": [
+        "fake death [packet] of entity with id %number% for %players%"
+      ]
+    },
+    {
+      "id": "EffFakeEntityName",
+      "name": "EffFakeEntityName",
+      "patterns": [
+        "fake %entity%'s name to %string% for %players%"
+      ]
+    },
+    {
+      "id": "EffFakeHeadRotation",
+      "name": "EffFakeHeadRotation",
+      "patterns": [
+        "[send] head rotation [packet] [with] id %number% with yaw %number% for %players%"
+      ]
+    },
+    {
+      "id": "EffFakeHealth",
+      "name": "EffFakeHealth",
+      "patterns": [
+        "fake %players%'[s] health to %number%"
+      ]
+    },
+    {
+      "id": "EffFakeItem",
+      "name": "EffFakeItem",
+      "patterns": [
+        "fake %livingentities/numbers%['s] equipment slot %string% to %itemtype% for %players%"
+      ]
+    },
+    {
+      "id": "EffFakeItemCooldown",
+      "name": "EffFakeItemCooldown",
+      "patterns": [
+        "fake item cooldown of %itemtype% for %players% for %number% ticks"
+      ]
+    },
+    {
+      "id": "EffFakeLevel",
+      "name": "EffFakeLevel",
+      "patterns": [
+        "fake %players%'[s] level to %number%"
+      ]
+    },
+    {
+      "id": "EffFakeMultiBlockChange",
+      "name": "EffFakeMultiBlockChange",
+      "patterns": [
+        "fake multi block set %locations% (as|to) %blockdata% for %players%"
+      ]
+    },
+    {
+      "id": "EffFakeScale",
+      "name": "EffFakeScale",
+      "patterns": [
+        "fake scale [packet] of entity with id %number% with [value|size] %number% for %players%"
+      ]
+    },
+    {
+      "id": "EffFakeTablistPlayer",
+      "name": "EffFakeTablistPlayer",
+      "patterns": [
+        "add [player] [named] %string% to tablist [with skin named %string%] [with latency %number%] [with username %string%] for %players% [with] uuid %string%"
+      ]
+    },
+    {
+      "id": "EffGhost",
+      "name": "EffGhost",
+      "patterns": [
+        "(send|make) %players% see %entities% as ghost [packet]"
+      ]
+    },
+    {
+      "id": "EffGlowEffect",
+      "name": "EffGlowEffect",
+      "patterns": [
+        "make %entities% glow %color% for %players%",
+        "make %entities% not glow for %players%"
+      ]
+    },
+    {
+      "id": "EffGuardianLaserCreate",
+      "name": "EffGuardianLaserCreate",
+      "patterns": [
+        "create [a] guardian laser from %location% to %location% [with color %string%] with id %string% for %players%"
+      ]
+    },
+    {
+      "id": "EffGuardianLaserRemove",
+      "name": "EffGuardianLaserRemove",
+      "patterns": [
+        "remove guardian laser with id %string%"
+      ]
+    },
+    {
+      "id": "EffMetadataEffectOLD",
+      "name": "EffMetadataEffectOLD",
+      "patterns": [
+        "send metadata packet with (entity id %number%|uuid %string%) [on fire %boolean%][,] [invisible %boolean%][,] [glowing %boolean%][,] [name %string%][,] [name visible %boolean%][,] [silent %boolean%][,] [has gravity %boolean%][,] [pose %string%] to %players%"
+      ]
+    },
+    {
+      "id": "EffMoveEntity",
+      "name": "EffMoveEntity",
+      "patterns": [
+        "[send] move entity [packet] [with] id %number% by %number%[,] %number%[,] %number% for %players%"
+      ]
+    },
+    {
+      "id": "EffRawMetadataOLD",
+      "name": "EffRawMetadataOLD",
+      "patterns": [
+        "add data from %string% [(with %itemtype/blockdata%)] to [packet] %object%"
+      ]
+    },
+    {
+      "id": "EffRemoveFakeEntity",
+      "name": "EffRemoveFakeEntity",
+      "patterns": [
+        "remove fake entit(y|ies) with id[s] %numbers% for %players%"
+      ]
+    },
+    {
+      "id": "EffRemoveFakePlayer",
+      "name": "EffRemoveFakePlayer",
+      "patterns": [
+        "remove fake player[s] with id[s] %numbers% and uuid[s] %strings% for %players%"
+      ]
+    },
+    {
+      "id": "EffRemoveFakeTablistPlayer",
+      "name": "EffRemoveFakeTablistPlayer",
+      "patterns": [
+        "remove tablist player[s] with uuid[s] %strings% for %players%"
+      ]
+    },
+    {
+      "id": "EffReplaceFast",
+      "name": "EffReplaceFast",
+      "patterns": [
+        "replace [blocks] %blockdata% (from|within) %location% and %location% to %blockdata% fast"
+      ]
+    },
+    {
+      "id": "EffRotateEntity",
+      "name": "EffRotateEntity",
+      "patterns": [
+        "[send] rotate entity [packet] [with] id %number% with yaw %number% [and] pitch %number% for %players%"
+      ]
+    },
+    {
+      "id": "EffSendPacket",
+      "name": "EffSendPacket",
+      "patterns": [
+        "send packet %object% to %players%"
+      ]
+    },
+    {
+      "id": "EffSetCamera",
+      "name": "EffSetCamera",
+      "patterns": [
+        "[set] camera [packet] of %players% to entity [with] id %number%"
+      ]
+    },
+    {
+      "id": "EffSetFast",
+      "name": "EffSetFast",
+      "patterns": [
+        "set %locations% to %blockdata% fast",
+        "set [blocks from] %location% to %location% to %blockdata% [even] fast[er]"
+      ]
+    },
+    {
+      "id": "EffSetPassenger",
+      "name": "EffSetPassenger",
+      "patterns": [
+        "make entit(ies|y) with id[s] %numbers% ride entity with id %number% for %players%"
+      ]
+    },
+    {
+      "id": "EffSetPlayerNameAndSkin",
+      "name": "EffSetPlayerNameAndSkin",
+      "patterns": [
+        "fake name of %player% to %string% with skin named %string% for %players%"
+      ]
+    },
+    {
+      "id": "EffSpawnFakeDroppedItem",
+      "name": "EffSpawnFakeDroppedItem",
+      "patterns": [
+        "spawn fake [dropped] item at %location% for %players% with id %number% with [item] %itemtype%"
+      ]
+    },
+    {
+      "id": "EffSpawnFakeEntity",
+      "name": "EffSpawnFakeEntity",
+      "patterns": [
+        "spawn fake %entitytype% at %location% for %players% with id %number%"
+      ]
+    },
+    {
+      "id": "EffSpawnFakeFallingBlock",
+      "name": "EffSpawnFakeFallingBlock",
+      "patterns": [
+        "spawn fake falling block at %location% for %players% with id %number% with [block] %blockdata%"
+      ]
+    },
+    {
+      "id": "EffSpawnFakeLightning",
+      "name": "EffSpawnFakeLightning",
+      "patterns": [
+        "spawn fake lightning at %location% for %players%"
+      ]
+    },
+    {
+      "id": "EffSpawnFakePlayer",
+      "name": "EffSpawnFakePlayer",
+      "patterns": [
+        "spawn fake player named %string% [with skin named %string%] [with name hidden %boolean%] [on tablist %boolean%] [with latency %number%] at %location% for %players% with id %number% [and] uuid %string%"
+      ]
+    },
+    {
+      "id": "EffTeamEffect",
+      "name": "EffTeamEffect",
+      "patterns": [
+        "send team packet to %players% with name %string% [displayname %string%] [nametag visibility %string%] [collision %string%] [color %color%] [prefix %string%] [suffix %string%] [and] [see friendly %boolean%] with entity uuid %strings%"
+      ]
+    },
+    {
+      "id": "EffTeleportPacket",
+      "name": "EffTeleportPacket",
+      "patterns": [
+        "[send] teleport [packet] [with] id %number% with [location] %location% to %players%"
+      ]
+    }
+  ],
+  "expressions": [
+    {
+      "id": "ExprAllItemsInInventoryChunk",
+      "name": "ExprAllItemsInInventoryChunk",
+      "return type": "Item Type",
+      "patterns": [
+        "all items in containers in chunk %chunk%"
+      ]
+    },
+    {
+      "id": "ExprConnectedBlocks",
+      "name": "ExprConnectedBlocks",
+      "return type": "Block",
+      "changers": [
+        "add",
+        "delete",
+        "remove",
+        "remove all",
+        "set"
+      ],
+      "patterns": [
+        "[next] %number% connected blocks from %location%"
+      ]
+    },
+    {
+      "id": "ExprDecodeItem",
+      "name": "ExprDecodeItem",
+      "return type": "Item",
+      "patterns": [
+        "decode %string% [to item]"
+      ]
+    },
+    {
+      "id": "ExprEncodeItem",
+      "name": "ExprEncodeItem",
+      "return type": "Text",
+      "patterns": [
+        "encode %itemtype% [to (string|base 64)]"
+      ]
+    },
+    {
+      "id": "ExprEntityID",
+      "name": "ExprEntityID",
+      "return type": "Number",
+      "patterns": [
+        "[the] entity id of %entities%",
+        "%entities%'[s] entity id"
+      ]
+    },
+    {
+      "id": "ExprGetAllGuardianBeamIDs",
+      "name": "ExprGetAllGuardianBeamIDs",
+      "return type": "Text",
+      "patterns": [
+        "all guardian beams [ids]"
+      ]
+    },
+    {
+      "id": "ExprHostname",
+      "name": "ExprHostname",
+      "return type": "Text",
+      "patterns": [
+        "[the] host[ ]name of %players%",
+        "%players%'[s] host[ ]name"
+      ]
+    },
+    {
+      "id": "ExprHostname",
+      "name": "ExprHostname",
+      "return type": "Text",
+      "patterns": [
+        "%player%'s hostname"
+      ]
+    },
+    {
+      "id": "ExprItemStack",
+      "name": "ExprItemStack",
+      "return type": "Item",
+      "patterns": [
+        "[convert|change] %itemtype% to [bukkit] item[ ]stack",
+        "[get] item[ ]stack (from|of) %itemtype%"
+      ]
+    },
+    {
+      "id": "ExprItemTypeInChunk",
+      "name": "ExprItemTypeInChunk",
+      "return type": "Location",
+      "patterns": [
+        "locations of %itemtypes% in %chunk%"
+      ]
+    },
+    {
+      "id": "ExprMetadataVar",
+      "name": "ExprMetadataVar",
+      "return type": "Object",
+      "patterns": [
+        "[raw] metadata packet with id %number%"
+      ]
+    },
+    {
+      "id": "ExprRegion",
+      "name": "ExprRegion",
+      "return type": "Object",
+      "patterns": [
+        "world guard region %string% in [world] %world%"
+      ]
+    },
+    {
+      "id": "ExprRomanNumerals",
+      "name": "ExprRomanNumerals",
+      "return type": "Text",
+      "patterns": [
+        "%number% as roman numeral[s]"
+      ]
+    },
+    {
+      "id": "ExprRomanToNumber",
+      "name": "ExprRomanToNumber",
+      "return type": "Number",
+      "patterns": [
+        "roman numeral[s] %string% as [a] number"
+      ]
+    },
+    {
+      "id": "ExprSecMetadataPacket",
+      "name": "ExprSecMetadataPacket",
+      "return type": "Object",
+      "patterns": [
+        "new metadata packet with id %number%"
+      ],
+      "entries": [
+        {
+          "name": "glowing",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "invisible",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "fire",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "silent",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "gravity",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "name",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "name visible",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "pose",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "health",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "air",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand small",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand arms",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand nobaseplate",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand no base",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand noplate",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand marker",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand left arm",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand right arm",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand left leg",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand right leg",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand head",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "stand body",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display item",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display block",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display interpolation",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display transformation",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display teleportduration",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display translation",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display scale",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display rotation left",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display rotation right",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display billboard",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display brightness block",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display brightness sky",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display view",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display shadow radius",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display shadow strength",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display width",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display height",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display line",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display background color",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display background alpha",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display text",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display text opacity",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display glow",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display defaultbackground",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display seethrough",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display shadow",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "display alignment",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "interaction width",
+          "isRequired": false,
+          "isSection": false
+        },
+        {
+          "name": "interaction height",
+          "isRequired": false,
+          "isSection": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { SkriptTypeSection } from '../../skript/section/custom/skript-type-section';
+import { SkriptTypeSection } from '../../Skript/Section/custom/skript-type-section';
 import { PatternTreeNode } from './pattern-tree-node';
 
 export class TypeNode extends PatternTreeNode {

@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "version": "1.3.2"
+  },
+  "conditions": [
+    {
+      "id": "CondHasGUI",
+      "name": "Has GUI",
+      "description": [
+        "Checks whether the given player(s) has/have a GUI open."
+      ],
+      "examples": [
+        "command /guiviewers: # Returns a list of all players with a GUI open.",
+        "\tset {_viewers::*} to all players where [input has a gui]",
+        "\tsend \"GUI Viewers: %{_viewers::*}%\" to player"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "%players% (has|have) a gui [open]",
+        "%players% (doesn't|does not|do not|don't) have a gui [open]"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "EffCancelGUIClose",
+      "name": "Cancel GUI Close",
+      "description": [
+        "Cancels or uncancels the closing of a GUI.",
+        " This effect can be used within a GUI close section.",
+        " A 1 tick delay is applied by this effect after the code has run."
+      ],
+      "examples": [
+        "create a gui with virtual chest inventory with 3 rows named \"My GUI\":",
+        "\trun on gui close:",
+        "\t\tcancel the gui closing"
+      ],
+      "since": [
+        "1.2.0"
+      ],
+      "patterns": [
+        "(cancel|uncancel) [the] gui clos(e|ing)"
+      ]
+    }
+  ],
+  "expressions": [
+    {
+      "id": "ExprGUIs",
+      "name": "ExprGUIs",
+      "return type": "GUI",
+      "patterns": [
+        "all guis"
+      ]
+    },
+    {
+      "id": "ExprGUIProperties",
+      "name": "GUI Properties",
+      "description": [
+        "Different properties of a GUI. They can be modified."
+      ],
+      "examples": [
+        "edit gui last gui:",
+        "\tset the name of the edited gui to \"New GUI Name!\"",
+        "\tset the rows of the edited gui to 3 # Sets the number of rows to 3 (if possible)",
+        "\tset the shape of the edited gui to \"xxxxxxxxx\", \"x-------x\", and \"xxxxxxxxx\"",
+        "\tset the lock status of the edited gui to false # Players can take items from this GUI now"
+      ],
+      "since": [
+        "1.0.0, 1.3 (rework, support outside of edit sections)"
+      ],
+      "return type": "Object",
+      "changers": [
+        "reset",
+        "set"
+      ],
+      "patterns": [
+        "[the] ([skript-]gui name[s]|([skript-]gui size[s]|rows)|shape[s]|lock status[es]) of %guiinventorys%",
+        "%guiinventorys%'[s] ([skript-]gui name[s]|([skript-]gui size[s]|rows)|shape[s]|lock status[es])"
+      ]
+    },
+    {
+      "id": "ExprGUIValues",
+      "name": "GUI Values",
+      "description": [
+        "Different utility values for a GUI. Some are available in vanilla Skript. Not all values are available for the GUI close section."
+      ],
+      "examples": [
+        "create a gui with virtual chest inventory:",
+        "\tmake gui 10 with water bucket:",
+        "\t\tset the gui item to lava bucket"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "return type": "Object",
+      "patterns": [
+        "[the] gui slot",
+        "[the] gui raw slot",
+        "[the] gui hotbar slot",
+        "[the] gui inventory",
+        "[the] gui inventory action",
+        "[the] gui click (type|action)",
+        "[the] gui cursor [item]",
+        "[the] gui [(clicked|current)] item",
+        "[the] gui slot type",
+        "[the] gui player",
+        "[the] gui (viewer|player)s",
+        "[the] gui slot id",
+        "[the] gui"
+      ]
+    },
+    {
+      "id": "ExprGUI",
+      "name": "GUI of Player",
+      "description": [
+        "The GUI that the player currently has open."
+      ],
+      "examples": [
+        "edit the player's gui:",
+        "\tmake gui 1 with dirt named \"Edited Slot\""
+      ],
+      "since": [
+        "1.1.0"
+      ],
+      "return type": "GUI",
+      "patterns": [
+        "[the] gui of %players%",
+        "%players%'[s] gui"
+      ]
+    },
+    {
+      "id": "ExprGUIIdentifiers",
+      "name": "Global GUI Identifiers",
+      "description": [
+        "A list of the identifiers of all registered global GUIs."
+      ],
+      "examples": [
+        "command /guis:",
+        "\ttrigger:",
+        "\t\tloop all of the registered gui identifiers:",
+        "\t\t\tsend loop-string"
+      ],
+      "since": [
+        "1.2.1"
+      ],
+      "return type": "Text",
+      "patterns": [
+        "[(all [[of] the]|the)] (global|registered) gui id(s|entifiers)"
+      ]
+    },
+    {
+      "id": "ExprIDOfGUI",
+      "name": "ID of GUI",
+      "description": [
+        "An expression that returns the ID of a GUI if the GUI is a global GUI.",
+        "This expression may be used to change the ID of a global GUI.",
+        "It may also be used to register a GUI as a global GUI."
+      ],
+      "examples": [
+        "send \"%id of {gui}%\" to player",
+        "set id of {gui} to \"new id\""
+      ],
+      "since": [
+        "1.3"
+      ],
+      "return type": "Text",
+      "changers": [
+        "set"
+      ],
+      "patterns": [
+        "[the] id[entifier] of %guiinventorys%",
+        "%guiinventorys%'[s] id[entifier]"
+      ]
+    },
+    {
+      "id": "ExprLastGUI",
+      "name": "Last GUI/GUI from ID",
+      "description": [
+        "It is used to return the last created/edited gui or a gui from a string id."
+      ],
+      "examples": [
+        "open the created gui for player",
+        "open the gui with the id \"globalGUI\" for player"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "return type": "GUI",
+      "patterns": [
+        "[the] (last[ly] [(created|edited)]|(created|edited)) gui",
+        "[the] gui [with [the] id[entifier]] %string%"
+      ]
+    },
+    {
+      "id": "ExprNextGUISlot",
+      "name": "Next GUI Slot",
+      "description": [
+        "An expression that returns the number/character of the next open slot in a GUI."
+      ],
+      "examples": [
+        "make the next gui slot with dirt named \"Slot: %the next gui slot%\""
+      ],
+      "since": [
+        "1.3"
+      ],
+      "return type": "Character",
+      "patterns": [
+        "%guiinventorys%'[s] next gui slot[s]",
+        "[the] next gui slot[s] of %guiinventorys%",
+        "[the] next gui slot"
+      ]
+    },
+    {
+      "id": "ExprPaginatedList",
+      "name": "Paginated List",
+      "description": [
+        "Returns the \"pages\" of a list based on the given number of lines per page."
+      ],
+      "examples": [
+        "# The SECOND set of 36 items in the \"guiItems\" list. This represents the elements from indexes 37 to 72",
+        "set {_guiPage2::*} to page 2 of {_guiItems::*} with 36 lines"
+      ],
+      "since": [
+        "1.1.0"
+      ],
+      "return type": "Object",
+      "patterns": [
+        "page[s] %numbers% of %objects% with %number% lines"
+      ]
+    },
+    {
+      "id": "ExprVirtualInventory",
+      "name": "Virtual Inventory",
+      "description": [
+        "An expression to create inventories that can be used with GUIs."
+      ],
+      "examples": [
+        "create a gui with virtual chest inventory with 3 rows named \"My GUI\""
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "return type": "Inventory",
+      "changers": [
+        "add",
+        "delete",
+        "remove",
+        "remove all",
+        "set"
+      ],
+      "patterns": [
+        "virtual ((crafting [table]|workbench)|chest|anvil|hopper|dropper|dispenser|%inventorytype%) [with size %number%] [(named|with (name|title)) %string%]",
+        "virtual ((crafting [table]|workbench)|chest|anvil|hopper|dropper|dispenser|%inventorytype%) [with %number% row[s]] [(named|with (name|title)) %string%]",
+        "virtual ((crafting [table]|workbench)|chest|anvil|hopper|dropper|dispenser|%inventorytype%) [(named|with (name|title)) %string%] with size %number%",
+        "virtual ((crafting [table]|workbench)|chest|anvil|hopper|dropper|dispenser|%inventorytype%) [(named|with (name|title)) %string%] with %number% row[s]"
+      ]
+    }
+  ],
+  "types": [
+    {
+      "id": "GUI",
+      "name": "GUI",
+      "description": [
+        "Represents a skript-gui GUI"
+      ],
+      "examples": [
+        "See the GUI creation section."
+      ],
+      "since": [
+        "1.0"
+      ],
+      "patterns": [
+        "gui inventor[y|ies]"
+      ]
+    },
+    {
+      "id": "SlotType",
+      "name": "Slot Types",
+      "description": [
+        "Represents the slot type in an Inventory Click Event."
+      ],
+      "examples": [
+        "container, hot bar, fuel, quickbar, hotbar, armour, result, quick bar, armor, crafting, outside, smelting result, crafting result, bottom row"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "slot type[s]"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "SecCreateGUI",
+      "name": "Create / Edit GUI",
+      "description": [
+        "The base of creating and editing GUIs."
+      ],
+      "examples": [
+        "create a gui with virtual chest inventory with 3 rows named \"My GUI\"",
+        "edit gui last gui:",
+        "\tset the gui-inventory-name to \"New GUI Name!\""
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "create [a] [new] gui [[with id[entifier]] %string%] with %inventory% [(and|with) ([re]move[e]able|stealable) items] [(and|with) shape %strings%]",
+        "(change|edit) [gui] %guiinventory%"
+      ]
+    },
+    {
+      "id": "SecGUIOpenClose",
+      "name": "GUI Open/Close",
+      "description": [
+        "Sections that will run when a user opens or closes the GUI. This section is optional."
+      ],
+      "examples": [
+        "create a gui with virtual chest inventory with 3 rows named \"My GUI\"",
+        "\trun on gui open:",
+        "\t\tsend \"You just opened this GUI!\" to player",
+        "\trun on gui close:",
+        "\t\tsend \"You just closed this GUI!\" to player"
+      ],
+      "since": [
+        "1.0.0, 1.3 (open section)"
+      ],
+      "patterns": [
+        "run (when|while) (open[ing]|clos(e|ing)) [[the] gui]",
+        "run (when|while) [the] gui (opens|closes)",
+        "run on gui (open[ing]|clos(e|ing))"
+      ]
+    },
+    {
+      "id": "SecMakeGUI",
+      "name": "Set GUI Slots",
+      "description": [
+        "Set or clear GUI slots."
+      ],
+      "examples": [
+        "create a gui with virtual chest inventory with 3 rows named \"My GUI\"",
+        "\tmake next gui with dirt # Formats the next available GUI slot with dirt. Doesn't do anything when clicked on.",
+        "\tmake gui 10 with water bucket:",
+        "\t\t#code here is run when the gui slot is clicked",
+        "\tunformat gui 10 # Removes the GUI item at slot 10",
+        "\tunformat the next gui # Removes the GUI item at the slot before the next available slot."
+      ],
+      "since": [
+        "1.0.0, 1.2.0 (making specific slots stealable)"
+      ],
+      "patterns": [
+        "(make|format) [the] next gui [slot] (with|to) [([re]mov[e]able|stealable)] %itemtype%",
+        "(make|format) gui [slot[s]] %strings/numbers% (with|to) [([re]mov[e]able|stealable)] %itemtype%",
+        "(un(make|format)|remove) [the] next gui [slot]",
+        "(un(make|format)|remove) gui [slot[s]] %strings/numbers%",
+        "(un(make|format)|remove) all [[of] the] gui [slots]"
+      ]
+    }
+  ]
+}

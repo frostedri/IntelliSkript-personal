@@ -1,10 +1,10 @@
-import { Hierarchy } from '../../hierarchy';
-import { Scope } from '../../pattern/scope';
+import { Hierarchy } from '../../Hierarchy';
+import { Scope } from '../../Pattern/Scope';
 import { SkriptVariable } from '../storage/skript-variable';
 
 export class SkriptSectionGroup extends Hierarchy<SkriptSectionGroup> {
 	scope?: Scope;
-	definedVariables: Array<SkriptVariable> = [];
+	definedVariables: SkriptVariable[] = [];
 	override children: SkriptSectionGroup[] = [];
 	constructor(parent?: SkriptSectionGroup) {
 		super(parent);

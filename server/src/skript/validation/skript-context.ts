@@ -1,13 +1,13 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, Location, Range } from 'vscode-languageserver/browser';
 import { SkriptNestHierarchy } from '../../nesting/skript-nest-hierarchy';
-import { PatternData } from '../../pattern/data/pattern-data';
-import { SkriptPatternMatchHierarchy } from '../../pattern/skript-patternmatch-hierarchy';
+import { PatternData } from '../../Pattern/data/pattern-data';
+import { SkriptPatternMatchHierarchy } from '../../Pattern/skript-patternmatch-hierarchy';
 import { TokenModifiers } from '../../token-modifiers';
 import { TokenTypes } from '../../token-types';
-import { SkriptFile } from '../section/skript-file';
-import { SkriptSection } from "../section/skript-section/skript-section";
-import { SemanticToken } from '../section/unordered-semantic-tokens-builder';
+import { SkriptFile } from '../Section/skript-file';
+import { SkriptSection } from "../Section/skript-section/skript-section";
+import { SemanticToken } from '../Section/unordered-semantic-tokens-builder';
 import { ParseResult } from './parse-result';
 
 //TOODO: make context able to 'push' and 'pop' (make a function able to modify the context or create an instance while keeping reference to the same diagnostics list
@@ -65,7 +65,7 @@ export class SkriptContext {
 	}
 
 
-	getLocation(start: number = 0, length: number = this.currentString.length): Location {
+	getLocation(start = 0, length: number = this.currentString.length): Location {
 		const StartPosition = this.currentDocument.positionAt(this.currentPosition + start);
 		return {
 			uri: this.currentDocument.uri,
@@ -100,7 +100,7 @@ export class SkriptContext {
 	}
 
 	getHierarchy(addDiagnostics = false) {
-		if (this.hierarchy) return this.hierarchy;
+		if (this.hierarchy) {return this.hierarchy;}
 		const openBraces = "{([";//< can also be used as operator so not including in brace list
 		const closingBraces = "})]";
 		this.hierarchy = new SkriptNestHierarchy(0, '');
@@ -151,7 +151,7 @@ export class SkriptContext {
 				const node = this.hierarchy.getActiveNode();
 				if (node.delimiter == '(')
 					//first child
-					node.children.push(new SkriptNestHierarchy(i + 1, ','));
+					{node.children.push(new SkriptNestHierarchy(i + 1, ','));}
 
 				else if (node.delimiter == ',') {
 					//pop last ',' child
@@ -191,7 +191,7 @@ export class SkriptContext {
 		let lastActiveNode: SkriptNestHierarchy = this.hierarchy;
 		while (true) {
 			const lastActiveChildNode: SkriptNestHierarchy | undefined = lastActiveNode.getActiveChildNode();
-			if (!lastActiveChildNode) break;
+			if (!lastActiveChildNode) {break;}
 			if (addDiagnostics) {
 				if (lastActiveChildNode != this.hierarchy) {
 					this.addDiagnostic(lastActiveChildNode.start, this.hierarchy.end - lastActiveChildNode.start, "no matching closing character found", DiagnosticSeverity.Error, "IntelliSkript->Nest->No Matching");

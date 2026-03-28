@@ -57,19 +57,19 @@ export async function activateClient(context: ExtensionContext, client: BaseLang
 		const uri = Uri.parse(params.uri);
 		const fileContent = await workspace.fs.readFile(uri);
 		return Buffer.from(fileContent).toString('utf8');
-	})
+	});
 	const listFilesListener = client.onRequest('custom/listFiles', async (params: { folderUri: string }) => {
 		const folderUri = Uri.parse(params.folderUri);
 		const files = await workspace.findFiles(new RelativePattern(folderUri, '**/*'), '**/node_modules/**');
 		return files.map(file => file.toString());
-	})
+	});
 
 	//this listener just sends the skript contents of an entire folder to the server
 	const getDocumentsListener = client.onRequest('custom/getDocuments', async (params: { folderUri: string }) => {
 		const folderUri = Uri.parse(params.folderUri);
 		if (folderUri.scheme == intelliskriptScheme) {
 			//just return all files
-			let fileList: { uri: string, content: string }[] = [];
+			const fileList: { uri: string, content: string }[] = [];
 			for (const file of resourceFiles) {
 				fileList.push({ uri: Uri.from({ scheme: intelliskriptScheme, path: resourceFolderString + '/' + file[0] }).toString(), content: file[1] });
 			}
@@ -86,15 +86,15 @@ export async function activateClient(context: ExtensionContext, client: BaseLang
 					//convert bytes to string
 					content: decoder.decode(await workspace.fs.readFile(file))
 				})));
-	})
+	});
 	const extensionUri = extensions.getExtension('JohnHeikens.intelliskript')?.extensionUri;
 	//for debugger
 	if (extensionUri)
-		client.onRequest('custom/getStartData', async (_params: {}) => {
+		{client.onRequest('custom/getStartData', async (_params: {}) => {
 			return {
 				addonPath: Uri.from({ scheme: intelliskriptScheme, path: resourceFolderString }).toString()
 			};
-		})
+		});}
 	// Listen for active text editor changes
 	window.onDidChangeActiveTextEditor(editor => {
 		if (editor && editor.document) {

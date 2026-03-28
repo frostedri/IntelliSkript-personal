@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { ParseFile } from './parse-file';
-import { Parser } from './parser';
+import { Parser } from './Parser';
 
 export const skriptFileHeader = "#AUTOMATICALLY GENERATED SKRIPT FILE\n#COPYRIGHT JOHN HEIKENS\n#https://github.com/JohnHeikens/IntelliSkript\n"
 
@@ -258,7 +258,7 @@ export class AddonParser extends Parser {
 		return { content: parseResult, fileName: inputFileName + '.sk' };
 	}
 	static override ParseFiles(): string {
-		const standardCodeString = fs.readFileSync("StandardFunctions.sk", "utf8");
+		const standardCodeString = fs.readFileSync(path.join(this.parserDirectory, "files", "StandardFunctions.sk"), "utf8");
 		let currentElemBuilding: { line: string, replacement: string } | undefined;
 		for (const line of standardCodeString.split(/\r\n|\r(?!\n)|\n/g)) {
 			if (line.endsWith(':') && line.match(/^\S/)) {

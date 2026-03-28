@@ -1,4 +1,4 @@
-import { PatternType } from "../../pattern/pattern-type";
+import { PatternType } from "../../Pattern/pattern-type";
 import { TokenModifiers } from "../../token-modifiers";
 import { TokenTypes } from "../../token-types";
 import { SkriptContext } from "../validation/skript-context";

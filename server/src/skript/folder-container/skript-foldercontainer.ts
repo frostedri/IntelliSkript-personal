@@ -1,6 +1,6 @@
 import { URI } from 'vscode-uri';
 import { isRelativeURI } from '../../file-system/file-functions';
-import { SkriptSectionGroup } from '../section/skript-section-group';
+import { SkriptSectionGroup } from '../Section/skript-section-group';
 import type { SkriptFolder } from './skript-folder';
 
 export class SkriptFolderContainer extends SkriptSectionGroup {

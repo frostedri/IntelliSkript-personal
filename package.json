@@ -212,9 +212,11 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "webpack",
-		"watch": "webpack --watch",
-		"package": "webpack --mode production --devtool hidden-source-map",
+		"build-addon-parser": "tsc -p addon-parser/tsconfig.json",
+		"generate-resources": "npm run build-addon-parser && node addon-parser/out/index.js",
+		"compile": "npm run generate-resources && webpack",
+		"watch": "npm run generate-resources && webpack --watch",
+		"package": "npx @vscode/vsce package",
 		"lint": "eslint",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
 		"chrome": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ./test-data"

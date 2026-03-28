@@ -1,0 +1,531 @@
+{
+  "metadata": {
+    "version": "1.7.2"
+  },
+  "conditions": [
+    {
+      "id": "CondYamlFileExists",
+      "name": "Does YAML Exist",
+      "description": [
+        "Checks if a YAML file exists at a file location.\nYou shouldn't have to use this condition since the load yaml effect will create the file if it doesn't exist"
+      ],
+      "examples": [
+        "yaml file \"plugins/skript-yaml/test.yml\" exists:",
+        " ",
+        "yaml file \"plugins/skript-yaml/test.yml\" doesn't exist:"
+      ],
+      "since": [
+        "1.3"
+      ],
+      "patterns": [
+        "[(non[(-| )]relative)] y[a]ml file %string% exists",
+        "[(non[(-| )]relative)] y[a]ml file %string% does(n't| not) exist"
+      ]
+    },
+    {
+      "id": "CondYamlPathExists",
+      "name": "Does YAML Path Exist",
+      "description": [
+        "Checks if one or more paths exist in a cached YAML file using said ID.\n  - First input is the path.\n  - Second input is the ID.\n  - If multiple paths are checked at once it will return false on the first one found to not exist."
+      ],
+      "examples": [
+        "set skript-yaml value \"test.test\" from \"config\" to \"test\"",
+        "set skript-yaml value \"test2.test2\" from \"config\" to \"test\"",
+        " ",
+        "yaml path \"test.test\" and \"test2.test2\" in \"config\" exists:",
+        "\tbroadcast \"this works\"",
+        "yaml path \"test.test\" and \"boop.boop\" in \"config\" exists:",
+        "\tbroadcast \"this will fail\""
+      ],
+      "since": [
+        "1.2.1"
+      ],
+      "patterns": [
+        "[skript-]y[a]ml [(node|path)[s]] %strings% (of|in|from) %string% exists",
+        "[skript-]y[a]ml [(node|path)[s]] %strings% (of|in|from) %string% does(n't| not) exist"
+      ]
+    },
+    {
+      "id": "CondNodeHasList",
+      "name": "Does YAML Path Have List",
+      "description": [
+        "Checks if one or more paths contain a list in a cached YAML file using said ID.\n  - First input is the path.\n  - Second input is the ID."
+      ],
+      "examples": [
+        "if yaml node \"listnode\" from \"example\" has list:",
+        "\tloop yaml list \"listnode\" from \"example\":",
+        "\t\tbroadcast \"%loop-val%\""
+      ],
+      "since": [
+        "1.3"
+      ],
+      "patterns": [
+        "[skript-]y[a]ml [(node|path)[s]] %string% (of|in|from) %string% has [a] list",
+        "[skript-]y[a]ml [(node|path)[s]] %string% (of|in|from) %string% does(n't| not) have [a] list"
+      ]
+    },
+    {
+      "id": "CondNodeHasValue",
+      "name": "Does YAML Path Have Value",
+      "description": [
+        "Checks if one or more values exist at a path in a cached YAML file using said ID.\n  - First input is the path.\n  - Second input is the ID.\n  - If multiple paths are checked at once it will return false on the first one found to not contain a value."
+      ],
+      "examples": [
+        "set skript-yaml value \"test.test\" from \"config\" to \"test\"",
+        " ",
+        "yaml path \"test.test\" in \"config\" has value:",
+        "\tbroadcast \"value exists\""
+      ],
+      "since": [
+        "1.1.0"
+      ],
+      "patterns": [
+        "[skript-]y[a]ml [(node|path)[s]] %strings% (of|in|from) %string% has [a] value[s]",
+        "[skript-]y[a]ml [(node|path)[s]] %strings% (of|in|from) %string% does(n't| not) have [a] value[s]"
+      ]
+    },
+    {
+      "id": "CondYamlIsEmpty",
+      "name": "Is YAML Empty",
+      "description": [
+        "Checks if a cached YAML file using said ID is empty.\n  - Input is the ID."
+      ],
+      "examples": [
+        "yaml \"config\" is empty:",
+        "\tbroadcast \"is empty\""
+      ],
+      "since": [
+        "1.1.5"
+      ],
+      "patterns": [
+        "[skript-]y[a]ml %string% is empty",
+        "[skript-]y[a]ml %string% is(n't| not) empty"
+      ]
+    },
+    {
+      "id": "CondYamlIsLoaded",
+      "name": "Is YAML Loaded",
+      "description": [
+        "Checks if one or more YAML files are loaded into memory using said ID."
+      ],
+      "examples": [
+        "yaml \"config\" is loaded:",
+        " ",
+        "yaml \"config\" and \"messages\" aren't loaded:"
+      ],
+      "since": [
+        "1.0.3"
+      ],
+      "patterns": [
+        "y[a]ml[s] %strings% (is|are) loaded",
+        "y[a]ml[s] %strings% ((are|is) not|(is|are)n[']t) loaded"
+      ]
+    },
+    {
+      "id": "CondYamlIsModified",
+      "name": "Is YAML Modified",
+      "description": [
+        "Checks if a YAML file has been modified since it was last loaded or saved."
+      ],
+      "examples": [
+        "# Basic check",
+        "yaml \"config\" is modified:",
+        "    broadcast \"Config has unsaved changes!\"",
+        "    save yaml \"config\"",
+        "# Negation",
+        "yaml \"config\" is not modified:",
+        "    broadcast \"Config is up to date!\"",
+        "# Synonyms",
+        "yaml \"config\" is unsaved:",
+        "    save yaml \"config\"",
+        "# Auto-save example",
+        "every 5 minutes:",
+        "    if yaml \"playerdata\" is modified:",
+        "        save yaml \"playerdata\"",
+        "        broadcast \"Player data auto-saved!\"",
+        "# Prevent data loss on quit",
+        "on quit:",
+        "    if yaml \"playerdata\" is modified:",
+        "        save yaml \"playerdata\"",
+        "        broadcast \"Saved unsaved changes before shutdown!\"",
+        "# Conditional save function",
+        "function saveIfModified(yamlId: text):",
+        "    if yaml \"%{_yamlId}%\" is modified:",
+        "        save yaml \"%{_yamlId}%\"",
+        "        return true",
+        "    return false",
+        "# Comment change triggers modified state",
+        "set yaml comment \"A new comment\" in \"config\"",
+        "if yaml \"config\" is modified:",
+        "    save yaml \"config\""
+      ],
+      "since": [
+        "1.7.2"
+      ],
+      "patterns": [
+        "y[a]ml %string% is (modified|unsaved)",
+        "y[a]ml %string% is not (modified|unsaved)"
+      ]
+    },
+    {
+      "id": "CondYamlNodeIsType",
+      "name": "YAML Node Is Type",
+      "description": [
+        "Checks if a YAML node is a specific type (list, value, or node)."
+      ],
+      "examples": [
+        "if yaml node \"test1.test2\" of \"config\" is value:",
+        "    broadcast \"It's a value!\"",
+        "else if yaml node \"my.list\" of \"config\" is list:",
+        "    broadcast \"It's a list!\"",
+        "else if yaml node \"test1\" of \"config\" is node:",
+        "    broadcast \"It's a node!\""
+      ],
+      "since": [
+        "1.7.2"
+      ],
+      "patterns": [
+        "y[a]ml (node|path) %string% (of|in|from) %string% is [a] (list|node|value)",
+        "y[a]ml (node|path) %string% (of|in|from) %string% is(n't| not) [a] (list|node|value)"
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "EffChangeYamlId",
+      "name": "Change YAML ID",
+      "description": [
+        "Changes the ID of a loaded YAML file or reassigns its file path.\n  - The first syntax changes the ID of a YAML file. Any changes to the ID are made at your own risk as this can cause issues with any other scripts that use the YAML file.\n  - The second syntax reassigns the file path of a YAML file. This is useful when a file has been deleted but kept in memory.\n  - The YAML file must be loaded before changing its ID or file path.\n  - The new ID must not already be in use by another loaded YAML file."
+      ],
+      "examples": [
+        "# Change the ID of a YAML file",
+        "change yaml id from \"config\" to \"newconfig\"",
+        " ",
+        "# Change the ID of a YAML file with variables",
+        "set {_oldId} to \"oldconfig\"",
+        "set {_newId} to \"newconfig\"",
+        "change yaml id from \"%{_oldId}%\" to \"%{_newId}%\"",
+        " ",
+        "# Reassign the file path of a deleted YAML",
+        "change yaml \"config\" file path to \"plugins/MyPlugin/newconfig.yml\"",
+        " ",
+        "# Change multiple YAML IDs",
+        "change yaml id from \"config1\" to \"newconfig1\"",
+        "change yaml id from \"config2\" to \"newconfig2\""
+      ],
+      "since": [
+        "1.7.2"
+      ],
+      "patterns": [
+        "(change|rename|update) y[a]ml id [from] %string% to %string%",
+        "(change|rename|update) y[a]ml %string% file path to [(non[(-| )]relative)] %string%"
+      ]
+    },
+    {
+      "id": "EffDeleteYaml",
+      "name": "Delete YAML",
+      "description": [
+        "Deletes a YAML file and optionally removes it from memory.\n  - If you want to keep the file loaded in memory, use the 'and keep loaded in memory' option"
+      ],
+      "examples": [
+        "delete yaml \"config\"",
+        "delete yaml \"config\" and keep loaded in memory"
+      ],
+      "since": [
+        "1.1.5"
+      ],
+      "patterns": [
+        "delete y[a]ml %strings% [and keep loaded in memory]"
+      ]
+    },
+    {
+      "id": "EffDeleteYamlFromDirectory",
+      "name": "Delete all YAML from one or more directories",
+      "description": [
+        "Syntax 1: Deletes all YAML files from one or more directories and removes them from memory.\nSyntax 2&3: Only deletes any loaded YAML files from one or more directories and removes them from memory.\n  - The input is one or more directories (ie. \"plugins/MyAwesomePlugin/\" and \"plugins/skript-yaml/\")."
+      ],
+      "examples": [
+        "delete all yaml from directory \"/plugins/skript-yaml/test\"",
+        " ",
+        "delete all loaded yaml from directory \"/plugins/skript-yaml/test\"",
+        " ",
+        "delete all loaded yaml from directory \"/plugins/skript-yaml/test\" using the filename as the id"
+      ],
+      "since": [
+        "1.2.1"
+      ],
+      "patterns": [
+        "delete (all|any) [loaded] y[a]ml from [(non[(-| )]relative)] director(y|ies) %strings%",
+        "delete (all|any) [loaded] y[a]ml from [(non[(-| )]relative)] director(y|ies) %strings% using [the] filename as [the] id"
+      ]
+    },
+    {
+      "id": "EffLoadYaml",
+      "name": "Load YAML",
+      "description": [
+        "Loads a YAML file into memory.\n  - The first input is the YAML file path (ie. \"plugins/MyAwesomePlugin/config.yml\").\n  - The second input allows you to choose your own ID for this file.\n  - If the second input isn't used then the files name minus the extention is used as the ID for example `config.yml` becomes `config`.\n  - When using non-relative, the file path should be relative to root directory of the pc (ie. \"C:/MinecraftServer/plugins/MyAwesomePlugin/config.yml\")"
+      ],
+      "examples": [
+        "#Both examples produce the same id for use in other effects/expressions",
+        "load yaml \"plugins/MyAwesomePlugin/config.yml\"",
+        "load yaml \"plugins/MyAwesomePlugin/config.yml\" as \"config\"",
+        " ",
+        "#to get similar function as the other addons you would do this sort of thing with the id...",
+        "\tload yaml \"plugins/MyAwesomePlugin/config.yml\" as file path",
+        "\tset yaml value \"version\" from \"plugins/MyAwesomePlugin/config.yml\" to 1.0",
+        "\tbroadcast \"%yaml value \"\"version\"\" from \"\"plugins/MyAwesomePlugin/config.yml\"\"%\""
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "[re]load [(non[(-| )]relative)] y[a]ml %strings%",
+        "[re]load [(non[(-| )]relative)] y[a]ml %string% as %string%",
+        "[re]load [(non[(-| )]relative)] y[a]ml %strings% using [the] [file] path[s] as [the] id[s]"
+      ]
+    },
+    {
+      "id": "EffLoadYamlDirectory",
+      "name": "Load all YAML from directory",
+      "description": [
+        "Loads a directory YAML files into memory.\n  - The input is a directory (ie. \"plugins/MyAwesomePlugin/\").\n  - If for example a file in that directory is named test.yml then the output ID would be 'plugins/MyAwesomePlugin/test.yml'\n  - Using the optional filename ID would output `test.yml`"
+      ],
+      "examples": [
+        "#This isn't something you would really want to do, or is it?",
+        "load all yaml from directory \"/plugins/skript-yaml/test\"",
+        "loop all of the currently loaded yaml files:",
+        "\tloop yaml nodes \"\" from loop-value-1:",
+        "\t\tloop yaml nodes loop-value-2 from loop-value-1:",
+        "\t\t\tbroadcast yaml value \"%loop-value-2%.%loop-value-3%\" from loop-value-1"
+      ],
+      "since": [
+        "1.2"
+      ],
+      "patterns": [
+        "[re]load all y[a]ml from [(non[(-| )]relative)] director(y|ies) %strings%",
+        "[re]load all y[a]ml from [(non[(-| )]relative)] director(y|ies) %strings% using [the] filename as [the] id"
+      ]
+    },
+    {
+      "id": "EffSaveYaml",
+      "name": "Save YAML",
+      "description": [
+        "Saves the current cached YAML elements to file.\n\t - Using the `[with an indentation of %-number%]` option allows you to save the file with a different amount of spacing between 1 and 10\n\t - Option to remove extra lines between nodes\n\t - Use `to %string%` or `as %string%` to save to a different file path"
+      ],
+      "examples": [
+        "save yaml \"config\"",
+        "save yaml \"config\" with an indentation of 2",
+        "save yaml \"config\" to \"plugins/MyPlugin/backup.yml\"",
+        "save yaml \"config\" as \"plugins/MyPlugin/config_backup.yml\" with an indentation of 4"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "save y[a]ml %strings% [with an indentation of %number%] [([and] with(out| no) extra lines between nodes)]",
+        "save y[a]ml %strings% (to|as) [(non[(-| )]relative)] [file] %string% [with an indentation of %number%] [([and] with(out| no) extra lines between nodes)]"
+      ]
+    },
+    {
+      "id": "EffUnloadYaml",
+      "name": "Unload YAML",
+      "description": [
+        "Unloads one or more YAML files or directories full of YAML files from memory."
+      ],
+      "examples": [
+        "unload yaml \"config\"",
+        " ",
+        "unload yaml directory \"plugins\\skript-yaml\""
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "unload y[a]ml [(director(y|ies))] %strings%"
+      ]
+    }
+  ],
+  "expressions": [
+    {
+      "id": "ExprAllYamlNodes",
+      "name": "All YAML Nodes",
+      "description": [
+        "Gets a list of all nodes of a cached YAML file."
+      ],
+      "examples": [
+        "set yaml value \"test1.test2\" from \"config\" to \"test3\"",
+        "set yaml value \"boop.beep\" from \"config\" to \"bop\"",
+        " ",
+        "set {_list::*} to all yaml nodes of \"config\"",
+        "broadcast \"%{_list::*}%\""
+      ],
+      "since": [
+        "1.0.4"
+      ],
+      "return type": "Text",
+      "patterns": [
+        "[all] [skript-]y[a]ml (node|path)[s] (of|in|from) %string%"
+      ]
+    },
+    {
+      "id": "ExprAllLoadedYaml",
+      "name": "Return All YAML (un)loaded in memory",
+      "description": [
+        "Returns a list of all \"cached\" yaml file IDs or from a certain directory or list of directories.\n - Can also return list of directories.\n - Can also return list of unloaded yaml files from a certain directory or list of directories.\n - To remain consistent with the load effect, the list of unloaded yaml files will not include the server path so that you don't have to use the non-relative option.\n - Some of the listed unloaded yaml files can include the server path which will require you to use the non-relative option in the yaml load effect."
+      ],
+      "examples": [
+        "set {_list::*} to the currently loaded yaml files",
+        "broadcast \"%{_list::*}%\"",
+        " ",
+        "loop the loaded yaml",
+        "\tbroadcast loop-value",
+        " ",
+        "loop the loaded yaml from directory \"plugins\\skript-yaml\"",
+        "\tbroadcast loop-value",
+        " ",
+        "loop the loaded yaml directories",
+        "\tbroadcast loop-value",
+        " ",
+        "loop the unloaded yaml from directory \"plugins\\skript-yaml\"",
+        "\tbroadcast loop-value"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "return type": "Text",
+      "patterns": [
+        "[(the|all [(of the|the)])] [currently] loaded y[a]ml [files] [from (director(y|ies) %strings%|all directories)]",
+        "[(the|all [(of the|the)])] [currently] unloaded y[a]ml [files] from director(y|ies) %strings%",
+        "[(the|all [(of the|the)])] [currently] loaded y[a]ml directories"
+      ]
+    },
+    {
+      "id": "ExprYaml",
+      "name": "YAML",
+      "description": [
+        "Gets, sets, removes values/nodes etc.. of a cached yaml file\n  - Requires the id used/created from the load effect\n  - This expression does not save to file\n  - Lists accept list variables for input\n  - Using 'without string checks' optional is a tiny bit faster but doesn't check/convert strings for numbers or booleans"
+      ],
+      "examples": [
+        "set yaml value \"test1.test2\" from \"config\" to \"test3\" # sets the node \"test1.test2\" to the string \"test3\"",
+        "set yaml list \"list.name\" from \"config\" to {_list::*}",
+        " ",
+        "set {_test} to yaml value \"test1.test2\" from \"config\"",
+        "broadcast \"%{_test}%\"",
+        " ",
+        "# To delete a value you can use either of these two syntax",
+        "delete yaml value \"test1.test2\" in \"uniqueID\"",
+        "remove \"test2\" from yaml node key \"test1\" in \"uniqueID\""
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "return type": "Object",
+      "changers": [
+        "delete",
+        "reset"
+      ],
+      "patterns": [
+        "[skript-]y[a]ml (value|(node|path) list|(node|path)[s with] key[s]|list) %string% (of|in|from) %string% [without string checks]"
+      ]
+    },
+    {
+      "id": "ExprYamlComments",
+      "name": "YAML Comments/header",
+      "description": [
+        "Gets, sets, deletes comments or the header of a cached yaml file\n  - Headers don't contain '#' so add it yourself if you want it\n  - Comments can only be at root level ie. 'root' not 'root.something'\n  - Both comment and header expressions can be set to multiple elements\n  - This expression does not save to file\n  - Option to have an extra line or not depending if you use comment or header\n  - Any 'extra lines' are removed when deleting comments/headers"
+      ],
+      "examples": [
+        "set the comments of yaml node \"test\" from \"config\" to \"First line\" and \"Second line\"",
+        "delete the comments of yaml node \"test\" from \"config\"",
+        " ",
+        "set {_header::*} to \"First line\" and \"Second line\"",
+        "set the comments at the top of \"config\" to {_header::*}",
+        "delete the comments at the top of \"config\"",
+        " ",
+        "set the header of \"config\" to {_header::*}"
+      ],
+      "since": [
+        "1.1.0"
+      ],
+      "return type": "Object",
+      "changers": [
+        "delete",
+        "reset",
+        "set"
+      ],
+      "patterns": [
+        "[the] comment[s] (of|from) y[a]ml node[s] %strings% (of|in|from) %string% [(with [an] extra line)]",
+        "[the] (comment[s] (at|on) [the] top of |header (of|from)) %string% [(with [an] extra line)]"
+      ]
+    },
+    {
+      "id": "ExprListValue",
+      "name": "YAML list value",
+      "description": [
+        "Gets, sets, removes values from a list from a cached yaml file using an index\n  - Requires index between 1 and the size of the list\n  - Requires the id used/created from the load effect\n  - This expression does not save to file\n  - Using 'without string checks' optional is a tiny bit faster but doesn't check/convert strings for numbers or booleans"
+      ],
+      "examples": [
+        "set index 1 in yaml list \"test1.test2\" from \"config\" to \"test3\"",
+        " ",
+        "set {_test} to yaml index 1 in list \"test1.test2\" from \"config\"",
+        "broadcast \"%{_test}%\""
+      ],
+      "since": [
+        "1.3.3"
+      ],
+      "return type": "Object",
+      "changers": [
+        "delete",
+        "reset",
+        "set"
+      ],
+      "patterns": [
+        "(index|value) %number% (of|in|from) [skript-]y[a]ml list %string% (of|in|from) %string% [without string checks]"
+      ]
+    },
+    {
+      "id": "ExprLoopYaml",
+      "name": "Yaml Loop",
+      "description": [
+        "The currently looped value of a yaml expression."
+      ],
+      "examples": [
+        "",
+        "loop yaml node keys \"node\" from \"config\":",
+        "\tmessage yaml value loop-node from loop-id",
+        "loop yaml node list \"node\" from \"config\":",
+        "\tmessage yaml value loop-node from loop-id"
+      ],
+      "since": [
+        "1.3"
+      ],
+      "return type": "Object",
+      "patterns": [
+        "[the] loop-(id|val|list|node|key|subnodekey[s])[-%*integer%]"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "id": "function_loadYaml",
+      "name": "loadYaml",
+      "description": [
+        "Loads a yaml file. Returns true is the load was successful.",
+        " - 1st parameter: (string) The id you would like to use",
+        " - 2nd parameter: (string) The file path",
+        " - 3rd parameter: (boolean) Whether you want to use a non relative path ie. c:/somefolder rather than relative to the server "
+      ],
+      "examples": [
+        "loadYaml(\"someId\", \"plugins/someThing/someYamlFile.yml\")",
+        "loadYaml(\"someId\", \"plugins/someThing/someYamlFile.yml\", true)"
+      ],
+      "since": [
+        "1.3.3"
+      ],
+      "return type": "Boolean",
+      "patterns": [
+        "loadYaml(name: string, file: string, isNonRelative: boolean)"
+      ]
+    }
+  ]
+}

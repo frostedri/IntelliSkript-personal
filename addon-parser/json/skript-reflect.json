@@ -1,82 +1,13 @@
 {
-  "events": [
-    {
-      "id": "consent",
-      "name": "Consent",
-      "patterns": [
-        "skript-(mirror|reflect), I know what I'm doing"
-      ]
-    },
-    {
-      "id": "define_condition",
-      "name": "Define Condition",
-      "patterns": [
-        "[(local)] condition <.+>",
-        "[(local)] condition",
-        "[(local)] %*classinfos% property condition <.+>"
-      ]
-    },
-    {
-      "id": "define_constant",
-      "name": "Define Constant",
-      "patterns": [
-        "option <.+>"
-      ]
-    },
-    {
-      "id": "define_effect",
-      "name": "Define Effect",
-      "patterns": [
-        "[(local)] effect <.+>",
-        "[(local)] effect"
-      ]
-    },
-    {
-      "id": "define_event",
-      "name": "Define Event",
-      "patterns": [
-        "[(local)] [custom] event %string%"
-      ]
-    },
-    {
-      "id": "define_expression",
-      "name": "Define Expression",
-      "patterns": [
-        "[(local)] [((plural|non(-|[ ])single))] expression <.+>",
-        "[(local)] [((plural|non(-|[ ])single))] expression",
-        "[(local)] [((plural|non(-|[ ])single))] %*classinfos% property <.+>"
-      ]
-    },
-    {
-      "id": "import",
-      "name": "Import",
-      "patterns": [
-        "import"
-      ]
-    },
-    {
-      "id": "bukkit",
-      "name": "On Bukkit",
-      "patterns": [
-        "[on] [(all)] %javatypes% [(at|on|with) priority <.+>]"
-      ],
-      "cancellable": true
-    }
-  ],
+  "metadata": {
+    "version": "2.6.3"
+  },
   "conditions": [
-    {
-      "id": "CondEventCancelled",
-      "name": "CondEventCancelled",
-      "patterns": [
-        "%events% (is|are) cancelled",
-        "%events% (isn't|is not|aren't|are not) cancelled"
-      ]
-    },
     {
       "id": "CondExpressionStatement",
       "name": "CondExpressionStatement",
       "patterns": [
-        "[(await)] %javaobject%"
+        "[await] <.+>"
       ]
     },
     {
@@ -86,23 +17,9 @@
         "%objects% (is|are) [a[n]] instance[s] of %javatypes%",
         "%objects% (is not|isn't|are not|aren't) [a[n]] instance[s] of %javatypes%"
       ]
-    },
-    {
-      "id": "CondParseLater",
-      "name": "CondParseLater",
-      "patterns": [
-        "(parse[d] later) <.+>"
-      ]
     }
   ],
   "effects": [
-    {
-      "id": "EffCallEvent",
-      "name": "EffCallEvent",
-      "patterns": [
-        "call [event] %events%"
-      ]
-    },
     {
       "id": "EffContinue",
       "name": "EffContinue",
@@ -111,38 +28,10 @@
       ]
     },
     {
-      "id": "EffDelayEffect",
-      "name": "EffDelayEffect",
-      "patterns": [
-        "delay [the] [current] effect"
-      ]
-    },
-    {
       "id": "EffExpressionStatement",
       "name": "EffExpressionStatement",
       "patterns": [
-        "[(await)] %javaobject%"
-      ]
-    },
-    {
-      "id": "EffImport",
-      "name": "EffImport",
-      "patterns": [
-        "import <((?:[_a-zA-Z$][\\w$]*\\.)*(?:[_a-zA-Z$][\\w$]*))(?:\\s+as ([_a-zA-Z$][\\w$]*))?>"
-      ]
-    },
-    {
-      "id": "EffNegateCondition",
-      "name": "EffNegateCondition",
-      "patterns": [
-        "negate [the] [current] condition"
-      ]
-    },
-    {
-      "id": "EffReturn",
-      "name": "EffReturn",
-      "patterns": [
-        "return [%objects%]"
+        "[await] <.+>"
       ]
     },
     {
@@ -159,8 +48,8 @@
       "name": "ExprArrayAccess",
       "return type": "Object",
       "changers": [
-        "set",
-        "delete"
+        "delete",
+        "set"
       ],
       "patterns": [
         "%javaobject%\\[%number%\\]"
@@ -170,20 +59,9 @@
       "id": "ExprBits",
       "name": "ExprBits",
       "return type": "Number",
-      "changers": [
-        "unknown"
-      ],
       "patterns": [
         "[the] (bit %number%|bit(s| range) [from] %number%( to |[ ]-[ ])%number%) of %numbers%",
         "%numbers%'[s] (bit %number%|bit(s| range) [from] %number%( to |[ ]-[ ])%number%)"
-      ]
-    },
-    {
-      "id": "ExprChangeValue",
-      "name": "ExprChangeValue",
-      "return type": "Object",
-      "patterns": [
-        "[the] change value[(s)]"
       ]
     },
     {
@@ -203,17 +81,6 @@
       ]
     },
     {
-      "id": "ExprCustomEventValue",
-      "name": "ExprCustomEventValue",
-      "return type": "Object",
-      "changers": [
-        "unknown"
-      ],
-      "patterns": [
-        "[the] [event-]<.+>"
-      ]
-    },
-    {
       "id": "ExprEvent",
       "name": "ExprEvent",
       "return type": "event",
@@ -230,19 +97,11 @@
       ]
     },
     {
-      "id": "ExprEventData",
-      "name": "ExprEventData",
-      "return type": "Object",
-      "patterns": [
-        "[extra] [event(-| )]data %string%"
-      ]
-    },
-    {
       "id": "ExprExpression",
       "name": "ExprExpression",
       "return type": "Object",
       "patterns": [
-        "[the] expr[ession][(s)](-| )<\\d+>"
+        "[the] expr[ession][s](-| )<\\d+>"
       ]
     },
     {
@@ -258,9 +117,9 @@
       "name": "ExprJavaCall",
       "return type": "Object",
       "patterns": [
-        "[(try)] %object%..%string%[(([%objects%]))]",
-        "[(try)] %object%.<(\\[[\\w.$]*])?([^0-9. \\[\\]][^. \\[\\]]*\\b)(\\[[\\w.$, ]*])?>[(([%objects%]))]",
-        "[(try)] [a] new %javatype%([%objects%])"
+        "[try] %object%..%string%[(([%objects%]))]",
+        "[try] %object%.<(\\[[\\w.$]*])?([^0-9. \\[\\]][^. \\[\\]]*\\b)(\\[[\\w.$, ]*])?>[(([%objects%]))]",
+        "[try] [a] new %javatype%([%objects%])"
       ]
     },
     {
@@ -347,6 +206,14 @@
       ]
     },
     {
+      "id": "ExprPlugin",
+      "name": "ExprPlugin",
+      "return type": "javaobject",
+      "patterns": [
+        "[(an|the)] instance of [the] plugin %javatype/string%"
+      ]
+    },
+    {
       "id": "ExprProxy",
       "name": "ExprProxy",
       "return type": "Object",
@@ -359,7 +226,9 @@
       "name": "ExprRawExpression",
       "return type": "Object",
       "patterns": [
-        "[the] raw %objects%"
+        "[the] (raw|underlying) expression[s] of %objects%",
+        "%objects%'[s] (raw|underlying) expression[s]",
+        "[the] raw [expression] %objects%"
       ]
     },
     {
@@ -367,32 +236,8 @@
       "name": "ExprSpread",
       "return type": "Object",
       "patterns": [
-        "...%object%"
-      ]
-    },
-    {
-      "id": "ImportHandler",
-      "name": "ImportHandler",
-      "return type": "javatype",
-      "patterns": [
-        "ChatChannel",
-        "LuckPerms",
-        "Player",
-        "Set",
-        "User",
-        "LuckPermsProvider",
-        "MineverseChatAPI",
-        "MineverseChatPlayer",
-        "IWarps",
-        "Essentials",
-        "ServerCommandEvent",
-        "VaultHook",
-        "PlaceholderAPI",
-        "EntityDamageByEntityEvent",
-        "JavaString",
-        "UUID",
-        "Bukkit",
-        "World"
+        "...%object%",
+        "…%object%"
       ]
     },
     {

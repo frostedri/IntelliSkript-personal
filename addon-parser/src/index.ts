@@ -2,7 +2,7 @@ import path = require('path');
 import * as fs from 'fs';
 import { AddonParser } from './addon-parser';
 import { idParser } from './id-parser';
-import { RepoDirectory } from './parser';
+import { RepoDirectory } from './Parser';
 import { ResourceParser } from './resource-parser';
 
 let totalString = AddonParser.ParseFiles();

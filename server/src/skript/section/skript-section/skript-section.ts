@@ -1,8 +1,8 @@
 import { DiagnosticSeverity, integer, Location } from 'vscode-languageserver/browser';
 import { SkriptNestHierarchy } from '../../../nesting/skript-nest-hierarchy';
-import { PatternData, TypeData } from '../../../pattern/data/pattern-data';
-import { PatternType } from "../../../pattern/pattern-type";
-import { SkriptPatternCall } from '../../../pattern/skript-pattern';
+import { PatternData, TypeData } from '../../../Pattern/data/pattern-data';
+import { PatternType } from "../../../Pattern/pattern-type";
+import { SkriptPatternCall } from '../../../Pattern/skript-pattern';
 import { TokenModifiers } from '../../../token-modifiers';
 import { TokenTypes } from '../../../token-types';
 import { SkriptVariable } from '../../storage/skript-variable';
@@ -530,7 +530,7 @@ export class SkriptSection extends SkriptSectionGroup {
 	}
 }
 
-import { PatternMatch } from '../../../pattern/match/pattern-match';
+import { PatternMatch } from '../../../Pattern/match/pattern-match';
 import { SkriptLoopSection } from '../skript-loop-section';
 
 export class SkriptConditionSection extends SkriptSection {

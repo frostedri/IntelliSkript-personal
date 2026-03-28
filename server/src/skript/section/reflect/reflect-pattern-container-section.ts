@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver';
-import { PatternData } from '../../../pattern/data/pattern-data';
-import { PatternTree } from '../../../pattern/pattern-tree';
-import { PatternType } from "../../../pattern/pattern-type";
-import { Scope } from '../../../pattern/scope';
+import { PatternData } from '../../../Pattern/data/pattern-data';
+import { PatternTree } from '../../../Pattern/pattern-tree';
+import { PatternType } from "../../../Pattern/pattern-type";
+import { Scope } from '../../../Pattern/Scope';
 import { TokenTypes } from '../../../token-types';
 import { SkriptTypeState } from '../../storage/type/skript-type-state';
 import { SkriptContext } from '../../validation/skript-context';

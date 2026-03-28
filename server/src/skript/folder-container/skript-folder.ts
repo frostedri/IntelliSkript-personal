@@ -1,8 +1,8 @@
 import { URI } from 'vscode-uri';
 import { addToUri, getRelativePathPart, URISeparator } from '../../file-system/file-functions';
-import { Scope } from '../../pattern/scope';
+import { Scope } from '../../Pattern/Scope';
 import { sortedIndex } from '../../sorted-array';
-import { SkriptFile } from '../section/skript-file';
+import { SkriptFile } from '../Section/skript-file';
 import { SkriptFolderContainer } from './skript-foldercontainer';
 import { SkriptWorkSpace } from './skript-workspace';
 
@@ -28,18 +28,18 @@ export class SkriptFolder extends SkriptFolderContainer {
 	}
 
 	getSkriptFileByUri(uri: URI): SkriptFile | undefined {
-		if (!this.files.length) return undefined;
+		if (!this.files.length) {return undefined;}
 		const index = this.getPreferredSkriptFileIndexByUri(uri);
-		const foundFile = this.files[index]
+		const foundFile = this.files[index];
 		return (foundFile && foundFile.document.uri == uri.toString()) ? foundFile : undefined;
 	}
 	/**invalidate all files in this folder and child folders */
 	invalidate() {
 		for (const file of this.files)
-			file.invalidate();
+			{file.invalidate();}
 
 		for (const folder of this.children)
-			folder.invalidate();
+			{folder.invalidate();}
 
 	}
 
@@ -61,11 +61,11 @@ export class SkriptFolder extends SkriptFolderContainer {
 		for (const file of this.files) {
 			//this way, a file won't know what is previous to it
 			if (!file.validated)
-				await file.validate();
+				{await file.validate();}
 			this.scope.merge(file.scope);
 
 			if (file === endFile) //we don't need patterns after this
-				return true;
+				{return true;}
 		}
 
 
@@ -80,7 +80,7 @@ export class SkriptFolder extends SkriptFolderContainer {
 	}
 
 	createFoldersForUri(uri: URI): SkriptFolder {
-		console.log('creating folder for uri: ' + uri.toString() + ' , folder uri:' + this.uri.toString())
+		console.log('creating folder for uri: ' + uri.toString() + ' , folder uri:' + this.uri.toString());
 		const child = this.getSubFolderByUri(uri);
 		if (child) {
 			return child.createFoldersForUri(uri);

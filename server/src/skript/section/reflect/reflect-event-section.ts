@@ -1,5 +1,5 @@
-import { PatternData } from "../../../pattern/data/pattern-data";
-import { PatternType } from "../../../pattern/pattern-type";
+import { PatternData } from "../../../Pattern/data/pattern-data";
+import { PatternType } from "../../../Pattern/pattern-type";
 import { TokenTypes } from '../../../token-types';
 import { SkriptTypeState } from '../../storage/type/skript-type-state';
 import { SkriptContext } from '../../validation/skript-context';

@@ -1,9 +1,9 @@
 import { DiagnosticSeverity } from 'vscode-languageserver/browser';
-import { PatternType } from '../../../pattern/pattern-type';
+import { PatternType } from '../../../Pattern/pattern-type';
 import { TokenTypes } from '../../../token-types';
 import type { SkriptContext } from '../../validation/skript-context';
 import {
-	SkriptSection
+    SkriptSection
 } from "../skript-section/skript-section";
 import { ReflectPatternContainerSection } from './reflect-pattern-container-section';
 

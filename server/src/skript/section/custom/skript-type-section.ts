@@ -1,7 +1,7 @@
 
-import { PatternData } from '../../../pattern/data/pattern-data';
-import { PatternTree } from '../../../pattern/pattern-tree';
-import { PatternType } from "../../../pattern/pattern-type";
+import { PatternData } from '../../../Pattern/data/pattern-data';
+import { PatternTree } from '../../../Pattern/pattern-tree';
+import { PatternType } from "../../../Pattern/pattern-type";
 import { TokenTypes } from '../../../token-types';
 import { SkriptContext } from '../../validation/skript-context';
 import { ReflectPatternContainerSection } from '../reflect/reflect-pattern-container-section';

@@ -2,17 +2,17 @@ import { ChangeAnnotation, CodeAction, CodeActionKind, CompletionItem, Completio
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
 import { IsDebugMode } from './intelliskript-constants';
-import { MatchProgress } from './pattern/match/match-progress';
-import { PatternTreeNode } from './pattern/pattern-tree-node/pattern-tree-node';
-import { removeDuplicates } from './pattern/remove-duplicates';
-import { SkriptPatternCall } from './pattern/skript-pattern';
-import { SkriptFolder } from './skript/folder-container/skript-folder';
-import { SkriptWorkSpace } from './skript/folder-container/skript-workspace';
-import { SkriptFile } from './skript/section/skript-file';
-import { IndentData } from './skript/validation/indent-data';
-import { SkriptContext } from './skript/validation/skript-context';
-import { WordInfo } from './skript/validation/word-info';
-import { Deferred, Sleep } from './thread';
+import { MatchProgress } from './Pattern/match/match-progress';
+import { PatternTreeNode } from './Pattern/pattern-tree-node/pattern-tree-node';
+import { removeDuplicates } from './Pattern/remove-duplicates';
+import { SkriptPatternCall } from './Pattern/skript-pattern';
+import { SkriptFolder } from './Skript/folder-container/skript-folder';
+import { SkriptWorkSpace } from './Skript/folder-container/skript-workspace';
+import { SkriptFile } from './Skript/Section/skript-file';
+import { IndentData } from './Skript/validation/indent-data';
+import { SkriptContext } from './Skript/validation/skript-context';
+import { WordInfo } from './Skript/validation/word-info';
+import { Deferred, Sleep } from './Thread';
 import { TokenModifiers } from './token-modifiers';
 import { TokenTypes } from './token-types';
 
@@ -21,13 +21,13 @@ export class Server {
 	globalSettings: Thenable<IntelliSkriptSettings> = this.getGlobalSettings();
 	connection: Connection;
 	// Cache the settings of all open documents
-	documentSettings: Map<string, Thenable<IntelliSkriptSettings>> = new Map();
+	documentSettings = new Map<string, Thenable<IntelliSkriptSettings>>();
 	//workspaces
 	currentWorkSpace = new SkriptWorkSpace();
 	constructor(connection: Connection) {
 		this.connection = connection;
 		// Create a simple text document manager.
-		const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
+		const documents = new TextDocuments<TextDocument>(TextDocument);
 
 		//this function will unlock the workspace when it finished loading
 		let unlockWorkSpace: () => void;
@@ -81,16 +81,16 @@ export class Server {
 		async function processWorkspaceFolder(folder: SkriptFolder) {
 			const folderUri = folder.uri.toString();
 			const documents = await connection.sendRequest(getDocumentsRequest, { folderUri: folderUri });
-			console.log('received files for ' + folderUri + ': ' + documents)
+			console.log('received files for ' + folderUri + ': ' + documents);
 
 			//the client will send us a list of files. we will create the folders for them ourselves.
 			for (const { uri, content } of documents) {
-				console.log('reading file from' + uri)
+				console.log('reading file from' + uri);
 
 				//currentWorkSpace.validateTextDocument()
 				//create folders until we're at the files level
 				const parentFolder = folder.createFoldersForUri(URI.parse(uri));
-				const document = TextDocument.create(uri, "skript", 0, content)
+				const document = TextDocument.create(uri, "skript", 0, content);
 				parentFolder.addFile(new SkriptFile(parentFolder, document));
 			}
 		}
@@ -271,7 +271,7 @@ export class Server {
 			const { textDocument } = params;
 			const file = this.currentWorkSpace.getSkriptFileByUri(URI.parse(textDocument.uri));
 			if (file)
-				return file.format();
+				{return file.format();}
 
 			return [];
 		});
@@ -332,7 +332,7 @@ export class Server {
 			validateTextDocument(change.document);
 		});
 
-		const validateTextDocument = async (textDocument: TextDocument, couldBeChanged: boolean = true): Promise<void> => {
+		const validateTextDocument = async (textDocument: TextDocument, couldBeChanged = true): Promise<void> => {
 			//retrieve settings while validating
 			const settingsRequest = this.globalSettings;// this.getDocumentSettings(textDocument.uri);
 			const unlock = await this.currentWorkSpace.mutex.lock();
@@ -369,7 +369,7 @@ export class Server {
 
 				connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: filteredDiagnostics });
 			}
-		}
+		};
 
 
 
@@ -571,7 +571,7 @@ export class Server {
 						return [codeAction];
 					}
 					else if (codeString.startsWith("IntelliSkript->Nest->Double Hashtags")) {
-						a.delete({ start: currentDiagnostic.range.start, end: { line: currentDiagnostic.range.start.line, character: currentDiagnostic.range.start.character + 1 } })
+						a.delete({ start: currentDiagnostic.range.start, end: { line: currentDiagnostic.range.start.line, character: currentDiagnostic.range.start.character + 1 } });
 						//maybe they just want double hashtags
 						codeAction.isPreferred = false;
 						codeAction.title = "Remove Hashtag";
@@ -586,14 +586,14 @@ export class Server {
 		//		// This handler provides the initial list of the completion items.
 		connection.onCompletion(
 			async (completionParams: CompletionParams): Promise<CompletionItem[]> => {
-				let results: CompletionItem[] = [];
+				const results: CompletionItem[] = [];
 				// The pass parameter contains the position of the text document in
 				// which code complete got requested. For the example we ignore this
 				// info and always provide the same completion items.
 				const unlock = await this.currentWorkSpace.mutex.lock();
 				const file = this.currentWorkSpace.getSkriptFileByUri(URI.parse(completionParams.textDocument.uri));
 				if (file) {
-					let result: CompletionItem = { kind: CompletionItemKind.Snippet, insertTextFormat: InsertTextFormat.Snippet, label: 'no label' };
+					const result: CompletionItem = { kind: CompletionItemKind.Snippet, insertTextFormat: InsertTextFormat.Snippet, label: 'no label' };
 					const startPos = file.document.offsetAt(completionParams.position);
 
 					if (completionParams.position.character == 1) {
@@ -665,7 +665,7 @@ export class Server {
 								results.push({
 									...result,
 									...startSnippet
-								},)
+								},);
 							}
 						}
 					}
@@ -686,7 +686,7 @@ export class Server {
 							const completions = removeDuplicates(await this.getPossibleCompletions(parsedContext, patternCall));
 							let sortNumber = 0;
 							for (const completion of completions) {
-								results.push({ textEdit: { range: { start: completionParams.position, end: completionParams.position }, newText: completion }, label: wordToComplete + completion, filterText: '#', sortText: sortNumber.toString() })
+								results.push({ textEdit: { range: { start: completionParams.position, end: completionParams.position }, newText: completion }, label: wordToComplete + completion, filterText: '#', sortText: sortNumber.toString() });
 								sortNumber++;
 							}
 							break;
@@ -733,7 +733,7 @@ export class Server {
 	}
 	getGlobalSettings(): Thenable<IntelliSkriptSettings> {
 		return this.initialized.promise.then(() => this.connection.workspace.getConfiguration("IntelliSkript")).then((result) => {
-			return result ?? defaultSettings
+			return result ?? defaultSettings;
 		});
 	}
 	getDocumentSettings(resource: string): Thenable<IntelliSkriptSettings> {
@@ -810,13 +810,13 @@ export class Server {
 		const sectionContainer = context.currentSection.getScope();
 		if (sectionContainer) {
 			const matrix = context.currentSkriptFile.parseResult.frequencyMatrix;
-			let rootNodes: MatchProgress[] = [];
-			let nodesToFollow: MatchProgress[] = sectionContainer.getStartNodes(patternCall);
+			const rootNodes: MatchProgress[] = [];
+			const nodesToFollow: MatchProgress[] = sectionContainer.getStartNodes(patternCall);
 			interface ExpandNode {
 				node: PatternTreeNode, pattern: string, weight: number
 			};
 
-			let nodesToExpandFrom: ExpandNode[] = [];
+			const nodesToExpandFrom: ExpandNode[] = [];
 			let currentProgress: MatchProgress | undefined;
 			//the last array elements will be processed first
 			while (currentProgress = nodesToFollow.pop() || (currentProgress = rootNodes.pop())) {
@@ -847,11 +847,11 @@ export class Server {
 			while (nextStep = nodesToExpandFrom.pop()) {
 				if (nextStep.node.staticTypeChildren.size || nextStep.node.regExpOrderedChildren.size || nextStep.node.patternsEndedHere.length) {
 					completions.push(nextStep.pattern);
-					if (completions.length >= 20) break;
+					if (completions.length >= 20) {break;}
 				}
 				if (nextStep.node.stringOrderedChildren.size) {
 					//explore nodes
-					for (let [key, childNode] of nextStep.node.stringOrderedChildren) {
+					for (const [key, childNode] of nextStep.node.stringOrderedChildren) {
 						nodesToExpandFrom.push({ weight: context.currentSkriptFile.parseResult.frequencyMatrix.getFrequency(nextStep.node, childNode), node: childNode, pattern: nextStep.pattern + key });
 					}
 					nodesToExpandFrom.sort((a, b) => a.weight - b.weight);

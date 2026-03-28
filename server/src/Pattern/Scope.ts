@@ -1,6 +1,6 @@
-import { SkriptTypeSection } from '../skript/section/custom/skript-type-section';
-import { SkriptFunction } from "../skript/section/skript-function-section";
-import { SkriptTypeState } from '../skript/storage/type/skript-type-state';
+import { SkriptTypeSection } from '../Skript/Section/custom/skript-type-section';
+import { SkriptFunction } from "../Skript/Section/skript-function-section";
+import { SkriptTypeState } from '../Skript/storage/type/skript-type-state';
 import { PatternData, TypeData } from "./data/pattern-data";
 import { cloneProgress, MatchProgress } from './match/match-progress';
 import { MatchResult } from './match/match-result';

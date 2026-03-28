@@ -1,6 +1,6 @@
-import { PatternData, TypeData } from '../../../pattern/data/pattern-data';
-import { PatternTree } from '../../../pattern/pattern-tree';
-import { PatternType } from '../../../pattern/pattern-type';
+import { PatternData, TypeData } from '../../../Pattern/data/pattern-data';
+import { PatternTree } from '../../../Pattern/pattern-tree';
+import { PatternType } from '../../../Pattern/pattern-type';
 import { SkriptTypeState } from '../../storage/type/skript-type-state';
 import { SkriptContext } from '../../validation/skript-context';
 import { SkriptSection } from '../skript-section/skript-section';

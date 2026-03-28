@@ -1,4 +1,4 @@
-import { SkriptTypeState } from "../skript/storage/type/skript-type-state";
+import { SkriptTypeState } from "../Skript/storage/type/skript-type-state";
 import { PatternType } from './pattern-type';
 //examples:
 //  "set %objects% to %objects%"

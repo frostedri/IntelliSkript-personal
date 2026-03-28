@@ -1,0 +1,379 @@
+{
+  "metadata": {
+    "version": "1.3.1"
+  },
+  "effects": [
+    {
+      "id": "EffMethod",
+      "name": "Abstract Method",
+      "description": [
+        "Adds new abstract method to the custom class."
+      ],
+      "examples": [
+        "public abstract class Blob:",
+        "\tpublic, abstract void run()"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "%*modifiers% %*parameter%([%*parameters%(|\\.\\.\\.)]) [throws %javatypes%]"
+      ]
+    },
+    {
+      "id": "EffAnnotations",
+      "name": "Annotations",
+      "description": [
+        "Adds annotations to the next class element."
+      ],
+      "examples": [
+        "public class Elephant extends Animal:",
+        "\t@Override, @NotNull",
+        "\tpublic int[] values():",
+        "\t\treturn new int[0]"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "%*annotations%"
+      ]
+    },
+    {
+      "id": "EffEnum",
+      "name": "Enum",
+      "description": [
+        "Adds new enum constant to the custom enum class."
+      ],
+      "examples": [
+        "public enum Blob:",
+        "\tpublic int value",
+        "\tBLOB[int](1)",
+        "\tFOO[int](10)",
+        "\tpublic Blob(int value):",
+        "\t\tsuper[]()",
+        "\t\tset this.value to {_value}"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "enum <^[a-zA-Z_$][a-zA-Z_$0-9]*$>\\[[<.+>]\\]([%objects%])"
+      ]
+    },
+    {
+      "id": "EffField",
+      "name": "Field",
+      "description": [
+        "Adds new field to the custom class."
+      ],
+      "examples": [
+        "public class Blob:",
+        "\tpublic int value = 5"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "%*modifiers% %*parameter% [= %object%]"
+      ]
+    },
+    {
+      "id": "EffSuperConstructorCall",
+      "name": "Superclass Constructor Call",
+      "description": [
+        "Calls constructor of the parent class."
+      ],
+      "examples": [
+        "public class Elephant extends Animal:",
+        "\tpublic Elephant():",
+        "\t\tsuper[String](\"elephant\")"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "super\\[[<.+>]\\]([%objects%])"
+      ]
+    },
+    {
+      "id": "EffSuperMethodCall",
+      "name": "Superclass Method Call",
+      "description": [
+        "Calls method of the parent class."
+      ],
+      "examples": [
+        "public class Elephant extends Animal:",
+        "\t@Override",
+        "\tpublic int value():",
+        "\t\tsuper.helloWorld()",
+        "\t\treturn 1"
+      ],
+      "since": [
+        "1.1"
+      ],
+      "patterns": [
+        "(|try) super.<^[a-zA-Z_$][a-zA-Z_$0-9]*$>[\\[[<.+>]\\]]([%objects%])",
+        "(|try) super..%string%[\\[[<.+>]\\]]([%objects%])"
+      ]
+    },
+    {
+      "id": "EffThrow",
+      "name": "Throw an Exception",
+      "description": [
+        "Throws an exception inside of a method of a constructor."
+      ],
+      "examples": [
+        "public class Elephant extends Animal:",
+        "\t@Override",
+        "\tpublic void fly() throws Exception:",
+        "\t\tthrow new UnsupportedOperationException()"
+      ],
+      "since": [
+        "1.1"
+      ],
+      "patterns": [
+        "throw %object%"
+      ]
+    }
+  ],
+  "expressions": [
+    {
+      "id": "ExprSuperMethodCall",
+      "name": "Result of Superclass Method Call",
+      "description": [
+        "Calls method of the parent class."
+      ],
+      "examples": [
+        "public class Elephant extends Animal:",
+        "\t@Override",
+        "\tpublic int value():",
+        "\t\tset {_v} to super.value()",
+        "\t\treturn {_v} + 1"
+      ],
+      "since": [
+        "1.1"
+      ],
+      "return type": "Object",
+      "changers": [
+        "add",
+        "delete",
+        "remove",
+        "remove all",
+        "reset",
+        "set"
+      ],
+      "patterns": [
+        "(|try) super.<^[a-zA-Z_$][a-zA-Z_$0-9]*$>[\\[[<.+>]\\]]([%objects%])",
+        "(|try) super..%string%[\\[[<.+>]\\]]([%objects%])"
+      ]
+    },
+    {
+      "id": "ExprThis",
+      "name": "This Instance",
+      "description": [
+        "Reference to the current class instance variable."
+      ],
+      "examples": [
+        "public class Blob:",
+        "\tprivate String name",
+        "\tpublic Blob(String name):",
+        "\t\tsuper[]()",
+        "\t\tset this.name to {_name}"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "return type": "Object",
+      "changers": [
+        "add",
+        "delete",
+        "remove",
+        "remove all",
+        "reset",
+        "set"
+      ],
+      "patterns": [
+        "this"
+      ]
+    }
+  ],
+  "types": [
+    {
+      "id": "Annotation",
+      "name": "Annotation",
+      "description": [
+        "Represents a Java annotation."
+      ],
+      "examples": [
+        "@Override"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "annotation[s]"
+      ]
+    },
+    {
+      "id": "Character",
+      "name": "Character",
+      "description": [
+        "Represents a single character"
+      ],
+      "examples": [
+        "set {_c} to 'A'"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "character[s]"
+      ]
+    },
+    {
+      "id": "NamedParameter",
+      "name": "Named Parameter",
+      "description": [
+        "Represents a named parameter."
+      ],
+      "examples": [
+        "public void method(@Nullable String param)"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "parameter[s]"
+      ]
+    },
+    {
+      "id": "PreImport",
+      "name": "Pre-Import",
+      "description": [
+        "Represents a pre-imported class"
+      ],
+      "examples": [
+        "public void run() throws PreImportedException"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "preimport[s]"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "SecConstructor",
+      "name": "Constructor",
+      "description": [
+        "Adds new constructor to the custom class."
+      ],
+      "examples": [
+        "public class Blob:",
+        "\tprivate String name",
+        "\tpublic Blob(String name):",
+        "\t\tsuper[]()",
+        "\t\tset this.name to {_name}"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "%*modifiers% %javatype%([%*parameters%(|\\.\\.\\.)]) [throws %javatypes%]"
+      ]
+    },
+    {
+      "id": "SecMethod",
+      "name": "Method",
+      "description": [
+        "Adds new method to the custom class."
+      ],
+      "examples": [
+        "public class Blob:",
+        "\tpublic void run(@Nullable String value):",
+        "\t\tbroadcast \"Hello %{_value}%!\""
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "[override] %*modifiers% %*parameter%([%*parameters%(|\\.\\.\\.)]) [throws %javatypes%]"
+      ]
+    },
+    {
+      "id": "SecStatic",
+      "name": "Static Block",
+      "description": [
+        "Adds new static block to the custom class."
+      ],
+      "examples": [
+        "public class Blob:",
+        "\tstatic:",
+        "\t\tbroadcast \"Hello Blob!\""
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "static"
+      ]
+    }
+  ],
+  "structures": [
+    {
+      "id": "StructClassAnnotations",
+      "name": "Class Annotations",
+      "description": [
+        "Adds annotations to custom classes."
+      ],
+      "examples": [
+        "@HelloWorld(value = true)",
+        "public class Blob:"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "%annotations%"
+      ]
+    },
+    {
+      "id": "StructNewClass",
+      "name": "New Class",
+      "description": [
+        "Creates new java class."
+      ],
+      "examples": [
+        "public class Blob:",
+        "public interface Elephant implements Animal:"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "%modifiers% (class|interface|enum) %preimport% [extends %preimport/javatype%] [implements %preimports/javatypes%]"
+      ]
+    },
+    {
+      "id": "StructPreImport",
+      "name": "Pre-Import",
+      "description": [
+        "Pre-imports new classes to the script."
+      ],
+      "examples": [
+        "pre-import:",
+        "\thippo.Blob",
+        "\tjava.lang.RuntimeException as RTE"
+      ],
+      "since": [
+        "1.0.0"
+      ],
+      "patterns": [
+        "pre[-]import"
+      ]
+    }
+  ]
+}

@@ -1,36 +1,7 @@
-# IntelliSkript
+# Hyper's IntelliSkript
 
- Intellisense for skript!
+This is my personal fork of IntelliSkript to add and update addons for my own use case.
+If you'd like to recommend an addon or an update, feel free to create an issue.
 
-[**Join our discord server**](https://discord.gg/hcSVXb4J7k "click here to join!") **to:**
-
-* get more info about IntelliSkript
-* ask questions about skript code and get answered within seconds
-* report bugs/glitches
-
-[join](https://discord.gg/hcSVXb4J7k "click here to join!")
-
-## What is IntelliSkript?
-
-IntelliSkript is the most advanced Skript extension for Visual Studio Code out there.
-### IntelliSkript can:
-
-### format and check syntax/indentation errors<br>
-  ![Animation](https://user-images.githubusercontent.com/50964021/204584349-18d29e3a-ed19-4f58-99be-f9e0d4fda7cf.gif)
-instead of reporting a lot of nonsense errors when improperly indented, IntelliSkript will adjust indentation where necessary. format using shift + alt + F.
-### go to definition on effects, variables, event values and function arguments<br>
-  ![image](https://user-images.githubusercontent.com/50964021/204463996-8b9ee466-41a5-45f9-bedd-e3fa9b320771.png)
-### analyze `/sk reload` performance impact<br>
-  ![image](https://user-images.githubusercontent.com/50964021/204579516-09165dba-7638-4307-a51b-f275c3c20643.png)
-### smart highlight<br>
-  ![Animation](https://github.com/JohnHeikens/IntelliSkript/assets/50964021/69d210dc-e924-45f7-9dc1-9019912b8d83)
-### show docs<br>
-  ![Go to definition](https://github.com/user-attachments/assets/05302532-f2c1-4ffb-9d18-4ba1e8191f5a)
-it analyzes syntax from loads of different skript addons and generates a fake skript reflect file for each addon for documentation purposes.
-
-## Compatibility
-IntelliSkript works everywhere and with almost everything:
-on desktop, browser and phone, Mac, Windows or Linux and is compatible with SK-VSC and built-in color themes.
-
-Report issues at https://github.com/johnheikens/IntelliSkript/issues
-Do you have any question? go to https://discord.gg/D4Eh4yxM8z
+## To build this:
+Run "npm run package" in your terminal.

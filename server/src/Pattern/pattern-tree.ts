@@ -1,9 +1,9 @@
 import { DiagnosticSeverity } from 'vscode-languageserver';
 import { Location } from 'vscode-languageserver/browser';
 import { SkriptNestHierarchy } from '../nesting/skript-nest-hierarchy';
-import type { ReflectPatternContainerSection } from '../skript/section/reflect/reflect-pattern-container-section';
-import { SkriptTypeState } from "../skript/storage/type/skript-type-state";
-import { SkriptContext } from '../skript/validation/skript-context';
+import type { ReflectPatternContainerSection } from '../Skript/Section/reflect/reflect-pattern-container-section';
+import { SkriptTypeState } from "../Skript/storage/type/skript-type-state";
+import { SkriptContext } from '../Skript/validation/skript-context';
 import { TokenTypes } from '../token-types';
 import { PatternData } from './data/pattern-data';
 import { PatternTreeNode } from './pattern-tree-node/pattern-tree-node';
@@ -11,7 +11,7 @@ import { PatternType } from './pattern-type';
 import { RegExpTreeError } from './regexp-tree-error';
 import { removeDuplicates } from "./remove-duplicates";
 
-import { SkriptTypeSection } from '../skript/section/custom/skript-type-section';
+import { SkriptTypeSection } from '../Skript/Section/custom/skript-type-section';
 import { TokenModifiers } from '../token-modifiers';
 import { RegExpNode } from './pattern-tree-node/regexp-node';
 import { StringNode } from './pattern-tree-node/string-node';

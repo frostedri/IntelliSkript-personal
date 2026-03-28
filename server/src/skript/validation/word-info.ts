@@ -1,5 +1,5 @@
 import { Range } from 'vscode-languageserver/browser';
-import { PatternData } from '../../pattern/data/pattern-data';
+import { PatternData } from '../../Pattern/data/pattern-data';
 import { SkriptVariable } from '../storage/skript-variable';
 
 export interface WordInfo {

@@ -1,8 +1,8 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { URI } from 'vscode-uri';
-import { Scope } from '../../pattern/scope';
-import Mutex from '../../thread';
-import { SkriptFile } from '../section/skript-file';
+import { Scope } from '../../Pattern/Scope';
+import Mutex from '../../Thread';
+import { SkriptFile } from '../Section/skript-file';
 import { SkriptFolder } from './skript-folder';
 import { SkriptFolderContainer } from './skript-foldercontainer';
 
@@ -75,17 +75,17 @@ export class SkriptWorkSpace extends SkriptFolderContainer {
 			if (file.parent == this.addonFolder) {
 				//this is the addon folder, all files in the workspace depend on this
 				for (const folder of this.children)
-					folder.invalidate();
+					{folder.invalidate();}
 				for (const looseFile of this.looseFiles)
-					looseFile.invalidate();
+					{looseFile.invalidate();}
 
 			}
 		}
 		else
-			file.invalidate();
+			{file.invalidate();}
 	}
 
-	async validateTextDocument(document: TextDocument, couldBeChanged: boolean = true) {
+	async validateTextDocument(document: TextDocument, couldBeChanged = true) {
 		const uri: URI = URI.parse(document.uri);
 		let file = this.getSkriptFileByUri(uri);
 		if (!file) {

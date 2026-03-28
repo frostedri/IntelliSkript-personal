@@ -1,6 +1,6 @@
 import type { Location } from 'vscode-languageserver/browser';
-import type { ReflectPatternContainerSection } from '../../skript/section/reflect/reflect-pattern-container-section';
-import { SkriptTypeState } from "../../skript/storage/type/skript-type-state";
+import type { ReflectPatternContainerSection } from '../../Skript/Section/reflect/reflect-pattern-container-section';
+import { SkriptTypeState } from "../../Skript/storage/type/skript-type-state";
 import { PatternType } from '../pattern-type';
 
 export class PatternData {
